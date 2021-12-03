@@ -20,7 +20,12 @@ def task1():
     """Perform Task 1."""
 
     title = "Artworks by Department"
-    query = ""  # TODO task 1
+    query = '''
+        SELECT COUNT(department) 
+        FROM moma_works
+        GROUP BY department
+        ORDER BY COUNT(department) DESC;
+    '''  # TODO task 1
 
     dataframe = sql_to_df(query)
     _fig, axes = plt.subplots(figsize=(10, 5))
@@ -51,7 +56,13 @@ def task2():
     """Perform Task 2."""
 
     title = "Artworks by Classification"
-    query = ""  # TODO task 2
+    query = '''
+        SELECT classification, COUNT(classification)
+        FROM moma_works
+        GROUP BY classification
+        HAVING COUNT(classification) > 100
+        ORDER BY COUNT(classification) ASC;
+    '''  # TODO task 2
 
     dataframe = sql_to_df(query)
     _fig, axes = plt.subplots(figsize=(10, 5))
@@ -77,7 +88,14 @@ def task3():
     """Perform Task 3."""
 
     title = "Artists by Nationality"
-    query = ""  # TODO task 3
+    query = '''
+        SELECT 
+        info -> 'nationality' as Nationality,
+        COUNT(info -> 'nationality')
+        FROM moma_artists
+        GROUP BY info -> 'nationality'
+        ORDER BY COUNT(info -> 'nationality') DESC;
+    '''  # TODO task 3
 
     dataframe = sql_to_df(query)
     _fig, axes = plt.subplots(figsize=(10, 5))
@@ -101,7 +119,14 @@ def task4():
     """Perform Task 4."""
 
     title = "Artists by Gender"
-    query = ""  # TODO task 4
+    query = '''
+        SELECT 
+        info -> 'gender' AS gender,
+        COUNT(info -> 'gender')
+        FROM moma_artists
+        GROUP BY gender
+        ORDER BY gender ASC;
+    '''  # TODO task 4
 
     dataframe = sql_to_df(query)
     fig, axes = plt.subplots(figsize=(10, 5))
